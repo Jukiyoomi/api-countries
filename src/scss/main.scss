@@ -1,0 +1,352 @@
+@use './utils/index' as vars;
+
+%full-w {
+	width: 100%;
+}
+%full-h {
+	height: 100%;
+}
+%anim {
+	opacity: 0;
+	animation: appear 0.7s 0.3s ease-in-out forwards;
+}
+
+.container {
+	@extend %full-w;
+	min-height: 120vh;
+	height: auto;
+	background: vars.$bery-light-gray;
+	color: vars.$dark-blue;
+
+	&.dark {
+		background: vars.$very-dark-bg-blue;
+		color: vars.$bery-light-gray;
+
+		header {
+			background: vars.$dark-blue;
+		}
+		.container_card .card {
+			background: vars.$dark-blue;
+		}
+		.back,
+		.boundaries div {
+			background: vars.$dark-blue;
+			color: vars.$bery-light-gray;
+		}
+
+		.container_form {
+			input,
+			button,
+			.choices,
+			ion-icon {
+				background: vars.$dark-blue;
+				color: vars.$bery-light-gray;
+			}
+		}
+	}
+
+	.loader {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.back {
+		background: #fff;
+		width: vars.rem(135);
+		height: vars.rem(40);
+		@include vars.flexer(center, center);
+		border-radius: vars.rem(8);
+		margin-left: vars.rem(75);
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.04);
+		transition: transform 0.3s;
+
+		@include vars.media(tablet-wide, max) {
+			margin-left: vars.rem(15);
+		}
+
+		span {
+			margin-left: vars.rem(10);
+		}
+
+		&:hover {
+			transform: scale(0.98);
+		}
+	}
+
+	header {
+		@extend %full-w;
+		height: vars.rem(80);
+		background: vars.$white;
+		@include vars.flexer(center, space-between);
+		padding: 0 vars.rem(75);
+		margin-bottom: vars.rem(40);
+
+		@include vars.media(tablet-wide, max) {
+			padding: 0 vars.rem(15);
+			// margin-bottom: vars.rem(130);
+		}
+
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+		h1 {
+			font-size: vars.rem(20);
+		}
+
+		button {
+			border: none;
+			color: inherit;
+			background: unset;
+			width: vars.rem(90);
+			@include vars.flexer(center, space-between);
+			cursor: pointer;
+			font-weight: 500;
+			font-size: vars.rem(14);
+		}
+
+		@include vars.media(phablet, max) {
+			height: vars.rem(120);
+		}
+	}
+	&_card {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		padding: 0 vars.rem(35);
+		width: auto;
+		height: auto;
+		@extend %anim;
+
+		@include vars.media(tablet, max) {
+			justify-content: center;
+		}
+
+		.card {
+			min-width: vars.rem(266);
+			// width: 25%;
+			flex: 0 0 20%;
+			margin: 0 vars.rem(35) vars.rem(70);
+			min-height: vars.rem(340);
+			height: auto;
+			@include vars.flexer(stretch, start, column);
+			background: #fff;
+			border-radius: vars.rem(8);
+			overflow: hidden;
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.04);
+			transition: transform 0.3s;
+
+			& > * {
+				height: 50%;
+				flex: 1;
+			}
+
+			&:hover {
+				transform: scale(0.98);
+			}
+		}
+		img {
+			@extend %full-w;
+			object-fit: cover;
+		}
+		.card_info {
+			margin: vars.rem(25) vars.rem(27);
+
+			.name {
+				// font-size: vars.rem(20);
+				margin-bottom: vars.rem(10);
+			}
+			li {
+				margin-bottom: vars.rem(7);
+			}
+
+			span {
+				font-weight: 600;
+			}
+		}
+	}
+
+	&_form {
+		@extend %full-w;
+		padding: 0 vars.rem(75);
+		// background: red;
+		height: vars.rem(55);
+		margin-bottom: vars.rem(40);
+		@include vars.flexer(center, space-between);
+		flex-wrap: wrap;
+		position: relative;
+		@extend %anim;
+		z-index: 10;
+
+		@include vars.media(tablet-wide, max) {
+			padding: 0 vars.rem(15);
+			margin-bottom: vars.rem(130);
+		}
+
+		& > * {
+			@extend %full-h;
+		}
+
+		span {
+			position: relative;
+			min-width: vars.rem(342);
+			width: 80%;
+			max-width: vars.rem(480);
+
+			background: transparent;
+
+			@include vars.media(tablet-wide, max) {
+				padding: 0 vars.rem(15);
+				margin-bottom: vars.rem(40);
+			}
+
+			input {
+				@extend %full-w;
+				@extend %full-h;
+				border-radius: vars.rem(8);
+				padding-left: vars.rem(55);
+				border-color: transparent;
+				font-size: vars.rem(16);
+				box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.04);
+			}
+
+			ion-icon {
+				position: absolute;
+				top: 50%;
+				left: vars.rem(40);
+				transform: translate(-50%, -50%);
+				color: vars.$dark-blue;
+			}
+		}
+
+		button {
+			@extend %full-h;
+			width: vars.rem(200);
+			background: #fff;
+			outline: none;
+			border: none;
+			border-radius: vars.rem(8);
+			box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.04);
+			@include vars.flexer(center, space-between);
+			padding: 0 vars.rem(26);
+			cursor: pointer;
+		}
+
+		.choices {
+			&.disappear {
+				display: none;
+				opacity: 0;
+				transform: translateY(5%);
+			}
+
+			@include vars.media(tablet-wide, max) {
+				top: 300%;
+			}
+
+			display: block;
+			top: 125%;
+			box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.04);
+			position: absolute;
+			background: #fff;
+			width: vars.rem(200);
+			border-radius: vars.rem(8);
+			padding: vars.rem(26);
+			font-weight: 600;
+			transition: transform 0.3s, opacity 0.3s;
+			opacity: 1;
+
+			transform: translateY(0);
+		}
+		p {
+			cursor: pointer;
+			transition: transform 0.3s;
+
+			&:not(:last-child) {
+				margin-bottom: vars.rem(15);
+			}
+
+			&:hover {
+				transform: scale(0.98);
+			}
+		}
+	}
+
+	&_detail {
+		@extend %full-w;
+		padding: 0 vars.rem(75);
+		margin-top: vars.rem(75);
+		@include vars.flexer(center, space-between);
+		@include vars.media(tablet-wide, max) {
+			padding: 0 vars.rem(15);
+			// min-height: vars.rem(400);
+			height: auto;
+		}
+		flex-wrap: wrap;
+		height: vars.rem(400);
+		img {
+			@extend %full-h;
+			@extend %full-w;
+			object-fit: cover;
+			margin-right: vars.rem(70);
+		}
+
+		& > * {
+			flex: 0 0 45%;
+			height: 100%;
+			@include vars.media(tablet-wide, max) {
+				flex-basis: 100%;
+			}
+		}
+
+		.content {
+			@include vars.flexer(start, space-evenly, column);
+			flex-wrap: wrap;
+		}
+		.sides {
+			@include vars.flexer(start, space-between);
+			width: 100%;
+			flex-wrap: wrap;
+
+			// background: red;
+		}
+		li {
+			margin-bottom: vars.rem(10);
+		}
+		span {
+			font-weight: 600;
+		}
+		.left,
+		.right {
+			width: 50%;
+			@include vars.media(tablet-wide, max) {
+				width: 100%;
+			}
+			margin: vars.rem(15) 0;
+		}
+		.boundaries {
+			@include vars.flexer(center, start);
+			flex-wrap: wrap;
+			width: 100%;
+
+			div {
+				@include vars.flexer(center, center);
+				width: fit-content;
+				// height: vars.rem(25);
+				padding: vars.rem(5) vars.rem(25);
+				margin-left: vars.rem(15);
+				border-radius: vars.rem(4);
+				background: #fff;
+				box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.04);
+			}
+		}
+	}
+}
+
+@keyframes appear {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
