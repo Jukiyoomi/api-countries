@@ -2,7 +2,7 @@
 	"name": "api-countries",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "svelte-kit dev",
+		"start": "svelte-kit dev",
 		"watch": "sass --watch src/scss/main.scss:src/css/style.css",
 		"build": "svelte-kit build",
 		"package": "svelte-kit package",
